@@ -43,7 +43,6 @@ A collection of SAPUI5 best practices learned from actual projects and implement
 
 ### Miscellaneous
 - [Using SAPUI5 recommended eslint rules](#using-sapui5-recommended-eslint-rules)
-- [customizing eslint rules](#customizing-eslint-rules)
 - [documenting with jsdoc](#documenting-with-jsdoc)
 
 -----
@@ -405,3 +404,13 @@ oForm.setBindingContext(oContext);
 ```
 
 [Back to Table of Contents](#table-of-contents)
+
+## Miscellaneous
+
+### **Using SAPUI5 recommended eslint rules**
+Always set the project to the base [ESLint](http://eslint.org/) ruleset which you can find [here](https://sapui5.hana.ondemand.com/#/topic/ccfe35638f1d46e2bbcf06fa60ccc6ef) or for [OpenUI5](https://github.com/SAP/openui5/blob/master/docs/eslint.md).
+
+### **Documenting with jsdoc**
+Always document that adheres to `jsdoc`, alternative link can be found [here](https://devdocs.io/jsdoc/).
+
+Refer to this [Example for Defining a Class](https://sapui5.hana.ondemand.com/#/topic/f6fba4c6e1cb49c7b355319ac9c8d1cd.html) for the SAPUI5 standard controller or module documentation.
