@@ -175,7 +175,7 @@ manageTimesheet
 
 COMPLETE FORMAT:
 ```
-#&lt;semantic object&gt;-&lt;action&gt;?&lt;semantic object parameter&gt;=&lt;value1&gt;
+<semantic object>-<action>?<semantic object parameter>=<value1>
 ```
 
 [Back to Table of Contents](#table-of-contents)
