@@ -59,3 +59,16 @@ fnFunction | function
 vVariant | variant types
 
 You can also refer to this in-depth naming convention as a reference. `(TO FOLLOW)`
+#### **Naming the project and namespace**
+Keep project name up to `15 characaters`. It will help you on your deployment to SAPUI5 ABAP Repository. SAPUI5 ABAP Repository has a limit of 15 characters for the new application name.
+
+![SAPUI5 Best Practice](/images/project_name_limit.png?raw=true)
+
+BAD:
+```
+Z_TEST_CUSTOM_APPLICATION
+```
+Good:
+```
+Z_TEST_CUST_APP
+```
