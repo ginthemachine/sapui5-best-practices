@@ -42,6 +42,7 @@ A collection of SAPUI5 best practices learned from actual projects and implement
 
 #### **Following naming conventions**
 Use hungarian notation for naming variable name and object properties:
+
 Sample|Type
 ------------ | ------------- 
 sId | string
