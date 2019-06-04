@@ -5,7 +5,7 @@ A collection of SAPUI5 best practices learned from actual projects and implement
 
 ## Table of Contents
 ### Project Name and Namespaces
-- [Following naming conventions](#naming-conventions)
+- [Following naming conventions](#following-naming-conventions)
 - [Naming the project and namespace](#namespace)
 - [Following reverse-DNS for the project namespace]()
 - [Keeping the project name and SAPUI5 ABAP repository name the same]()
@@ -39,3 +39,22 @@ A collection of SAPUI5 best practices learned from actual projects and implement
 - [using SAPUI5 recommended eslint rules]()
 - [customizing eslint rules]()
 - [documenting with jsdoc]()
+
+#### **Following naming conventions**
+Use hungarian notation for naming variable name and object properties:
+Sample|Type
+------------ | ------------- 
+sId | string
+oDomRef | object
+$DomRef	| jQuery object
+iCount | int
+mParameters | map / assoc. array
+aEntries | array
+dToday | date
+fDecimal | float
+bEnabled | boolean
+rPattern | RegExp
+fnFunction | function
+vVariant | variant types
+
+You can also refer to this in-depth naming convention as a reference. `(TO FOLLOW)`
