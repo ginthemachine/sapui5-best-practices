@@ -20,26 +20,31 @@ A collection of SAPUI5 best practices learned from actual projects and implement
 - [Naming actions](#naming-actions)
 
 ### SAPUI5 Version
-- [index file resource version](#index-file-resource-version)
-- [manifest resource version](#manifest-resource-version)
+- [Index file resource version](#index-file-resource-version)
+- [Manifest resource version](#manifest-resource-version)
 - [Web IDE project settings version](#web-ide-project-settings-version)
 
 ### Routing
-- [naming targets](#naming-targets)
-- [creating patterns](#creating-patterns)
-- [naming url parameters](#naming-url-parameters)
+- [Naming targets](#naming-targets)
+- [Creating patterns](#creating-patterns)
+- [Naming url parameters](#naming-url-parameters)
 
 ### Model-View-Controller
-- [using base controllers]()
-- [using parent controllers]()
-- [exhausting models]()
-- [reducing modules]()
-- [reducing anonymous functions]()
+- [Using base controllers](#using-base-controllers)
+- [Using parent controllers](#using-parent-controllers)
+- [Exhausting models](#exhausting-models)
+- [Reducing modules](#reducing-modules)
+- [Reducing anonymous functions](#reducing-anonymous-functions)
+- [Using i18n over text in code](#using-i18n-over-text-in-code)
+- [Using correct odata types](#using-correct-odata-types)
+- [Using correct CRUD operations](#using-correct-crud-operations)
+- [Using createKey for CRUD operations](#using-createkey-for-crud-operations)
+- [Using createEntry for create operations](#using-createentry-for-create-operations)
 
 ### Miscellaneous
-- [using SAPUI5 recommended eslint rules]()
-- [customizing eslint rules]()
-- [documenting with jsdoc]()
+- [Using SAPUI5 recommended eslint rules](#using-sapui5-recommended-eslint-rules)
+- [customizing eslint rules](#customizing-eslint-rules)
+- [documenting with jsdoc](#documenting-with-jsdoc)
 
 -----
 
@@ -209,7 +214,7 @@ Targets and routes should match view file to easily track the flow of the naviga
 - `bypass` - fail safe target for unmatched routes.
 
 ### **Creating Patterns**
-Route name should be descriptive by itself. Prefer *plural* form for routes if appicable.
+Route name should be descriptive by itself. Prefer *plural* form for routes if applicable.
 
 BAD:
 ```
@@ -242,6 +247,161 @@ GOOD:
 ```
 itemDetails/{objectId}
 orders/{orderId}
+```
+
+[Back to Table of Contents](#table-of-contents)
+
+## Model-View-Controller
+
+### **Using base controllers**
+Move reusable functions to higher scope. The recommended base controller contents as follows:
+
+- `getRouter`
+- `getResourceBundle`
+- `getModel`
+- `setModel`
+- `onNavBack`
+
+### **Using parent controllers**
+Enhance existing controllers by using them as parent controllers, but do take note:
+
+>Note: The SAPUI5 controller extension concept does not use inheritance
+
+### **Exhausting models**
+Models allows you to write maintainable code. It also allows you to auto update control properties and bindings all at once. It also decouples the data to the presentation layer.
+
+BAD:
+```js
+var oText = this.getView().byId("text-field");
+
+oText.setText("hello");
+oText.setTextAlign("End");
+oText.setBusy(true);
+// ... update only the oText control
+```
+
+GOOD:
+```js
+var oModel = this.getView().getModel();
+
+oModel.setProperty("/message", "hello");
+oModel.setProperty("/alignment", "End");
+oModel.setProperty("/busy", true);
+//... auto updates all controls with binding
+
+```
+
+### **Reducing modules**
+Reduce response time and performance by using only what is needed by the application.
+
+- Bootstraps  - preload modules in `manifest.json`, the ones used throughout the application.
+- `constructor` and `onInit` -  dependencies loaded in the `sap.ui.define` of the controller.
+- On-demand  - Inline `sap.ui.require`, for Dialogs and rarely used elements.
+
+### **Reducing anonymous functions**
+Prefer callbacks as separate function for readability and extensibility.
+
+BAD:
+```js
+fnMyServiceCall: function() {
+    var oModel = this.getView().getModel("view");
+    oModel.read("/Orders", {
+        success: function(oResult, oResponse){
+            // do something
+        },
+        error: function(oError){
+            // output error
+        }
+    })
+}
+```
+
+GOOD:
+```js
+fnMyServiceCall: function() {
+    var oModel = this.getView().getModel("view");
+    oModel.read("/Orders", {
+        success: this.fnSuccessCallback,
+        error: this.fnErrorCallback
+    })
+},
+fnSuccessCallback: function(oResult, oResponse){
+    // do something
+},
+fnErrorCallback: function(oError){
+    // output error
+}
+```
+
+### **Using i18n over text in code**
+BAD:
+```js
+onPressButton: function(){
+	MessageToast.show("hey! hey! hey!");
+}
+```
+
+GOOD:
+```js
+onPressButton: function(){
+	MessageToast.show(this.getResourceBundle().getText("message"));
+}
+```
+
+### **Using correct odata types**
+Do not use `Edm.Strings` to represent the following, etc.:
+
+- Date use `Edm.Date`
+- Time use `Edm.Time`
+- Currency use `Edm.Decimal`
+- Flags (e.g. ABAP true, 'X') use `Edm.Boolean`
+
+### **Using correct CRUD operations**
+- Do not use `odata.create` to delete and override existing entry, use `odata.update`
+- Do not use `odata.read`, `odata.create` for non-CRUD functionality like calculations and aggregations of results use `function import` instead.
+- Do not use `odata.read` for `function import` use `callFunction`
+
+```js
+var oHandle = oModel.callFunction("/GetProductsByRating", {urlParameters: {rating:3}});
+oHandle.contextCreated().then(function(oContext) {
+      oView.setBindingContext(oContext);
+});
+```
+
+### **Using createKey for CRUD operations**
+Use `createKey` to generate collection URLs and to pre-validate against the `metadata` the existence of the collection.
+
+BAD:
+```js
+myODataModel.update("/Orders(123)");
+```
+
+GOOD:
+```js
+var sPath = oModel.createKey("/Orders", {
+  OrderId: 123, // your dynamic key value
+});
+oModel.update(sPath /*,...*/);
+```
+
+### **Using createEntry for create operations**
+Use `createEntry` to instatiate new collection items for submission of entries.
+
+```js
+// create an entry of the Products collection with the specified properties and values
+var oContext = oModel.createEntry("/Products", { 
+		properties: { 
+			Id:99, 
+			Name:"Product", 
+			Description:"new Product", 
+			ReleaseDate:new Date(), 
+			Price:"10.1", 
+			Rating:1
+		} 
+	});
+
+// binding against this entity
+oForm.setBindingContext(oContext);
 ```
 
 [Back to Table of Contents](#table-of-contents)
