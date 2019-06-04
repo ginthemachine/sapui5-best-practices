@@ -20,9 +20,14 @@ A collection of SAPUI5 best practices learned from actual projects and implement
 - [Naming actions](#naming-actions)
 
 ### SAPUI5 Version
-- [index.html resource version]()
-- [manifest.json resource version]()
-- [Web IDE project settings version]()
+- [index file resource version](#index-file-resource-version)
+- [manifest resource version](#manifest-resource-version)
+- [Web IDE project settings version](#web-ide-project-settings-version)
+
+### Routing
+- [naming paths]()
+- [creating patterns]()
+- [naming url parameters]()
 
 ### Model-View-Controller
 - [using base controllers]()
@@ -30,11 +35,6 @@ A collection of SAPUI5 best practices learned from actual projects and implement
 - [exhausting models]()
 - [reducing modules]()
 - [reducing anonymous functions]()
-
-### Routing
-- [naming paths]()
-- [creating patterns]()
-- [naming url parameters]()
 
 ### Miscellaneous
 - [using SAPUI5 recommended eslint rules]()
@@ -177,5 +177,22 @@ COMPLETE FORMAT:
 ```
 <semantic object>-<action>?<semantic object parameter>=<value1>
 ```
+
+[Back to Table of Contents](#table-of-contents)
+
+### **Index file resource version**
+In actual projects, it is recommened to set a fix SAPUI5 version. This assures the supported libraries are compatible and consistent to your development setup. For stand alone application verify the `index.html` resource version.
+
+![Index HTML](/images/index_html.png?raw=true)
+
+### **Manifest resource version**
+For launchpad ready applications, verify the version in the app descriptor file or `manifest.json`.
+
+![Index HTML](/images/manifest_json.png?raw=true)
+
+### **Web IDE project settings version***
+Also verify the project settings in SAP Web IDE, to match your systems version.
+
+![Index HTML](/images/project_settings.png?raw=true)
 
 [Back to Table of Contents](#table-of-contents)
