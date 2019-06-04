@@ -25,9 +25,9 @@ A collection of SAPUI5 best practices learned from actual projects and implement
 - [Web IDE project settings version](#web-ide-project-settings-version)
 
 ### Routing
-- [naming paths]()
-- [creating patterns]()
-- [naming url parameters]()
+- [naming targets](#naming-targets)
+- [creating patterns](#creating-patterns)
+- [naming url parameters](#naming-url-parameters)
 
 ### Model-View-Controller
 - [using base controllers]()
@@ -74,7 +74,7 @@ BAD:
 ```
 Z_TESTING_APPLICATION
 ```
-Good:
+GOOD:
 ```
 Z_TESTAPP
 ```
@@ -95,7 +95,7 @@ BAD:
 ```
 my.awesome.app.com
 ```
-Good:
+GOOD:
 ```	
 com.example.ztestapp
 ```
@@ -107,7 +107,7 @@ BAD:
 ```
 com.1.0.1.app.test
 ```
-Good:
+GOOD:
 ```	
 com.example.ztestapp
 com.mycompany.timesheet
@@ -180,6 +180,8 @@ COMPLETE FORMAT:
 
 [Back to Table of Contents](#table-of-contents)
 
+## SAPUI5 Version
+
 ### **Index file resource version**
 In actual projects, it is recommened to set a fix SAPUI5 version. This assures the supported libraries are compatible and consistent to your development setup. For stand alone application verify the `index.html` resource version.
 
@@ -190,9 +192,56 @@ For launchpad ready applications, verify the version in the app descriptor file 
 
 ![Index HTML](/images/manifest_json.png?raw=true)
 
-### **Web IDE project settings version***
+### **Web IDE project settings version**
 Also verify the project settings in SAP Web IDE, to match your systems version.
 
 ![Index HTML](/images/project_settings.png?raw=true)
+
+[Back to Table of Contents](#table-of-contents)
+
+## Routing
+
+### **Naming Targets**
+Targets and routes should match view file to easily track the flow of the navigation. Also provide the following as minimal settings for targets:
+
+- `viewLevel` - sets heirarchy to the application views.
+- `transition` - the default transition behavior for the current target.
+- `bypass` - fail safe target for unmatched routes.
+
+### **Creating Patterns**
+Route name should be descriptive by itself. Prefer *plural* form for routes if appicable.
+
+BAD:
+```
+page1
+itemDetail
+```
+
+GOOD:
+```
+home
+itemDetails
+```
+
+### **Naming URL Parameters**
+Routing parameters should be url safe, stay away from unsafe characters as parameters:
+
+```
+"{", "}", "|", "\", "^", "~", "[", "]", and "`"
+```
+
+Routing parametes should be *singular* form
+
+BAD:
+```
+itemDetails/{objectIds}
+orders/{orderItems}
+```
+
+GOOD:
+```
+itemDetails/{objectId}
+orders/{orderId}
+```
 
 [Back to Table of Contents](#table-of-contents)
