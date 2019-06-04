@@ -8,10 +8,10 @@ A collection of SAPUI5 best practices learned from actual projects and implement
 ### Project Name and Namespaces
 - [Following naming conventions](#following-naming-conventions)
 - [Naming the project and namespace](#naming-the-project-and-namespace)
-- [Keeping the project name and SAPUI5 ABAP repository name the same](keeping-the-project-name-and-sapui5-abap-repository-name-the-same)
-- [Keeping the project name and git repository name similar](keeping-the-project-name-and-git-repository-name-similar)
-- [Following reverse-DNS for the project namespace](following-reverse-dns-for-the-project-namespace)
-- [Keeping the project namespace descriptive or contain abbreviations of the app](keeping-the-project-namespace-descriptive-or-contain-abbreviations-of-the-app)
+- [Keeping the project name and SAPUI5 ABAP repository name the same](#keeping-the-project-name-and-git-repository-name-similar)
+- [Keeping the project name and git repository name similar](#keeping-the-project-name-and-git-repository-name-similar)
+- [Following reverse-DNS for the project namespace](#following-reverse-dns-for-the-project-namespace)
+- [Keeping the project namespace descriptive or contain abbreviations of the app](#keeping-the-project-namespace-descriptive-or-contain-abbreviations-of-the-app)
 
 ### Fiori Launchpad
 - [Naming the catalog]()
