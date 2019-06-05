@@ -3,6 +3,8 @@ SAPUI5 Best Practices
 
 A collection of SAPUI5 best practices learned from actual projects and implementations.
 
+You can also check tutorials and guides on my blog, [genuineprogrammer](https://www.genuineprogrammer.com) for more!
+
 ## Table of Contents
 
 ### Project Name and Namespaces
